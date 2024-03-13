@@ -10,11 +10,23 @@ export class TaskStatusValidationPipe implements PipeTransform {
 
   transform(value: any) {
     const status = value.status.toUpperCase();
+
+    if (!this.isIdValid(value.id)) {
+      throw new BadRequestException(`${value.id} is not a number`);
+    }
+
     if (!this.isStatusValid(status)) {
       throw new BadRequestException(`${status} is an invalid status`);
     }
 
     return { id: value.id, status: status };
+  }
+
+  private isIdValid(id: any) {
+    if (!isNaN(id)) {
+      return true;
+    }
+    return false;
   }
 
   private isStatusValid(status: any) {

@@ -7,5 +7,8 @@ export class GetTasksFilterDto {
   status: TaskStatus;
 
   @IsOptional()
+  userId: number;
+
+  @IsOptional()
   search: string;
 }
